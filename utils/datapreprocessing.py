@@ -197,3 +197,57 @@ def create_summarized_feature(x):
         str_local = summarize(str_local_Error, word_count = 200)
         print("Can't Summarize this sentence as input has only one sentence. Hence, replacing with (Rake + Summarized Value)" )
     return str_local
+
+#Below functions accepts a column from dataframe as input and return the same column
+#by repalcing the emailIDs in the input column with "emailaddress"
+def replaceEmailIds(dfColumn):
+    newDF = pd.DataFrame()
+    newDF['datacolumn'] = dfColumn
+    for i, row in newDF.iterrows():
+        #print(i)
+        if pd.notna(newDF.at[i,'datacolumn']):
+            if not re.findall('^[0-9]*$',str(newDF.at[i,'datacolumn'])):
+                lstEmails = re.findall('\S+@\S+', newDF.at[i,'datacolumn'])
+                #print(lstEmails)
+                if lstEmails:
+                    for email in lstEmails: 
+                        newDF['datacolumn'][i] = newDF['datacolumn'][i].replace(email, "emailaddress")
+                        #print(newDF['datacolumn'][i])
+    return newDF['datacolumn']
+
+def applyDetRules(datadf,rulesdf):
+    datadf['pred_group'] = np.nan
+    for i, row in rulesdf.iterrows():
+        if rulesdf['Short Desc Rule'][i] == 'begins with' and rulesdf['Desc Rule'][i] == 'begins with' and pd.isna(rulesdf['User'][i]):
+            for j, row in datadf.iterrows():
+                if pd.notna(datadf['SD_e'][j]) and pd.notna(datadf['D_e'][j]):
+                    if ((datadf['SD_e'][j].startswith(rulesdf['Short Dec Keyword'][i])) and (datadf['D_e'][j].startswith(rulesdf['Dec keyword'][i]))):
+                        datadf['pred_group'][j] = rulesdf['Group'][i]
+        if pd.isna(rulesdf['Short Desc Rule'][i]) and rulesdf['Desc Rule'][i] == 'begins with' and pd.notna(rulesdf['User'][i]):
+            for j, row in datadf.iterrows():
+                if pd.notna(datadf['D_e'][j]) and pd.notna(datadf['Caller'][j]):
+                    if ((datadf['D_e'][j].startswith(rulesdf['Desc Rule'][i]) and (rulesdf['User'][i] == datadf['Caller'][j]))):
+                        datadf['pred_group'][j] = rulesdf['Group'][i]
+        if rulesdf['Short Desc Rule'][i] == 'contains' and pd.notna(rulesdf['User'][i]):
+            for j, row in datadf.iterrows():
+                if (pd.notna(datadf['SD_e'][j]) and pd.notna(datadf['Caller'][j])):
+                     if ((rulesdf['Short Dec Keyword'][i] in datadf['SD_e'][j]) and (rulesdf['User'][i] == datadf['Caller'][j])):
+                        datadf['pred_group'][j] = rulesdf['Group'][i]
+        if rulesdf['Short Desc Rule'][i] == 'contains' and pd.isna(rulesdf['Desc Rule'][i]) and pd.isna(rulesdf['User'][i]):
+            for j, row in datadf.iterrows():
+                #print(j)
+                if pd.notna(datadf['SD_e'][j]):
+                    if (rulesdf['Short Dec Keyword'][i] in datadf['SD_e'][j]):
+                        datadf['pred_group'][j] = rulesdf['Group'][i]
+        if pd.isna(rulesdf['Short Desc Rule'][i]) and rulesdf['Desc Rule'][i] == 'begins with' and pd.isna(rulesdf['User'][i]):
+            for j, row in datadf.iterrows():
+                if pd.notna(datadf['D_e'][j]):
+                    if (datadf['D_e'][j].startswith(rulesdf['Dec keyword'][i])):
+                        datadf['pred_group'][j] = rulesdf['Group'][i]
+        if pd.isna(rulesdf['Short Desc Rule'][i]) and rulesdf['Desc Rule'][i] == 'contains' and pd.isna(rulesdf['User'][i]):
+            for j, row in datadf.iterrows():
+                if pd.notna(datadf['D_e'][j]):
+                    if (rulesdf['Dec keyword'][i] in datadf['D_e'][j]):
+                        datadf['pred_group'][j] = rulesdf['Group'][i]
+                        
+    return datadf
