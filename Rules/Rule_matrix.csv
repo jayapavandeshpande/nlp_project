@@ -1,0 +1,42 @@
+S no,Short Desc Rule,Short Dec Keyword,Desc Rule,Dec keyword,User,Group
+1,contains,reset passwords,equals,the,,GRP_17
+2,begins with,erp access issue,begins with,system (SID_,,GRP_2
+3,,,contains,vsphere,,GRP_12
+4,,,contains,esxi,,GRP_12
+5,,,contains,a termination for,,GRP_2
+6,,,contains,windows account,,GRP_0
+7,,,contains,erp SID_34 account locked,,GRP_0
+8,,,contains,erp SID_34 password reset,,GRP_0
+9,,,begins with,EU_tool,jionmpsf wnkpzcmv,GRP_24
+10,,,begins with,EU_tool,cwrikael oanmsecr,GRP_0
+11,,,contains,sso portal,,GRP_73
+12,,,contains,unable to complete forecast,,GRP_67
+13,,,contains,srvlavpwdrprd01,,GRP_61
+14,,,contains,company formatheywting standard,,GRP_70
+15,contains,files not processed,,,,GRP_71
+16,contains,report zsdslsum,,,,GRP_64
+17,,,contains,dalgtylam,,GRP_69
+18,contains,delete the charm,,,,GRP_38
+19,,,contains,source user,,GRP_39
+20,,,contains,update login script,,GRP_39
+21,,,contains,compatibilty mode,,GRP_39
+22,,,contains,near capacity,,GRP_39
+23,,,contains,memotech,,GRP_39
+24,,,contains,dynamics crm app,,GRP_63
+25,,,contains,calls on iphone,,GRP_63
+26,,,contains,receiving e-mails,,GRP_63
+27,contains,erp kp06789,,,,GRP_35
+28,,,contains,expense report will not submit,,GRP_68
+29,,,contains,nx9,,GRP_46
+30,contains,instal,contains,cutview,,GRP_66
+31,,,contains,time cards,,GRP_36
+32,,,contains,timecards,,GRP_36
+33,contains,files not received,,,,GRP_71
+34,contains,plant_100,,,,GRP_54
+35,contains,zzsdspc7,,,,GRP_54
+36,,,contains,can't access dob report ,,GRP_57
+37,contains, fy_13,,,,GRP_38
+38,Contains ,finance_app,not contain,HostName_1132,,GRP_55
+39,,,contains,HostName_1132,,GRP_12
+40,,,contains,JOB_1148,,GRP_9
+41,,,contains,ie 10 or ie10,,GRP_0

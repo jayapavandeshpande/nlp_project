@@ -5,6 +5,7 @@ import string
 import numpy as np
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+import pandas as pd
 
 # load nltk's SnowballStemmer as variabled 'stemmer'
 from nltk.stem.snowball import SnowballStemmer
